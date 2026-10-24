@@ -1,6 +1,6 @@
-CC      = gcc
-CFLAGS  = -Os -flto -ffunction-sections -fdata-sections -Wall -Wextra -fno-asynchronous-unwind-tables -fno-ident
-LDFLAGS = -s -flto -Wl,--gc-sections -static-libgcc
+CC      = tcc
+CFLAGS  = -nostdlib -Wall
+LDFLAGS = -luser32 -lkernel32
 SOURCE  = keylogger.c
 EXE		= keylogger.exe
 
@@ -15,6 +15,8 @@ else
     RM    = rm -f $(EXE)
 endif
 
+.PHONY: build run clean
+
 build:
 	$(CC) $(CFLAGS) $(SOURCE) -o $(EXE) $(LDFLAGS)
 	@$(SIZE)
@@ -24,5 +26,3 @@ run: build
 
 clean:
 	@$(RM)
-
-.PHONY: all clean
